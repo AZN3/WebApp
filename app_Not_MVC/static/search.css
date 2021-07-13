@@ -1,0 +1,89 @@
+
+	.tab { 
+       display:inline-block; 
+       margin-left: 80px; 
+}
+
+	.tab2 { 
+       display:inline-block; 
+       margin-left: 120px; 
+}
+
+
+	.tab3 { 
+       display:inline-block; 
+       margin-left: 200px; 
+}
+	.tab4 { 
+       display:inline-block; 
+       margin-left: 280px; 
+}
+	.tab5 { 
+       display:inline-block; 
+       margin-left: 320px; 
+}
+
+	.flash{
+ 		border-width:2px;
+ 		border-style:double;
+ 		border-color:black;
+ 		background-color: grey;
+ }
+
+ 	.phone .tab4 {
+
+ 		border-width:2px;
+ 		border-style:double;
+ 		border-color:black;
+ 		background-color: grey;
+ 	}
+ 	.email .tab4 {
+ 		border-width:2px;
+ 		border-style:double;
+ 		border-color:black;
+ 		background-color: grey;
+ 	}
+ 	.contact .tab5 {
+ 		border-width:2px;
+ 		border-style:double;
+ 		border-color:black;
+ 		background-color: grey;
+ 	}
+ 	
+ 	.objects .tab4 {
+ 		border-width:2px;
+ 		border-style:double;
+ 		border-color:black;
+ 		background-color: grey;
+ 	}
+
+ 	
+
+
+ 
+
+ 	.notices .tab3 {
+ 		border-width:2px;
+ 		border-style:double;
+ 		border-color:black;
+ 		background-color: grey;
+}
+	 
+ 	.network .tab3 {
+ 		border-width:2px;
+ 		border-style:double;
+ 		border-color:black;
+ 		background-color: grey;
+ }
+ 	.rdap .tab2 {
+
+ 		border-width:2px;
+ 		border-style:double;
+ 		border-color:black;
+ 		background-color: grey;
+ 		
+ 	}
+
+
+
+

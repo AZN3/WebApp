@@ -1,0 +1,103 @@
+
+
+
+
+
+
+
+ §§§c'est viviement recomender de déployer cette application sur une machine virtuelle ubuntu §§§
+
+
+
+pour déployer cette application, suivez les étapes suivante:
+
+1)création d'un environnement virtuel:
+	-téléchargement:    sudo apt install virtualenv
+	
+	-créer un dossier envir-virtuels:   sudo mkdir envir-virtuels
+	
+	-accéder à ce dossier: cd  envir-virtuels
+	
+	-créer un environnement virtuel : virtualenv --python=python3 venv  §§§("venv" est le nom de l'environnement vous pouvez l'appeler ce que vous voulez)§§§    
+	
+	-activer l'environnement : . ./venv/bin/activate    §§§(si vous avez nommé votre environnement différement vous mettez ce nom à la place de "venv")§§§ 
+
+
+
+
+2) préparation des modules python nécéssaires ainsi que les SGBD mysql-server 
+				
+
+				sudo apt install python3-pip 
+				sudo /usr/bin/python3 -m pip install --upgrade pip
+				sudo apt install mysql-server
+				sudo apt install -y default-libmysqlclient-dev
+				sudo pip install flask
+				sudo pip install flask_mysqldb
+				sudo pip install shodan
+				sudo pip install py_mysql
+				sudo pip install ipwhois
+				sudo pip install flask_bootstrap
+
+3)Création de la base des données:
+	
+	3.1)passer aux super utilisateur root
+			sudo su root
+	3.2)accéder à mysql via la commande:
+			 mysql
+	3.3)éxecuter les requêtes mysql suivantes:
+			CREATE DATABASE app;
+			use app
+			
+
+			CREATE TABLE accounts(
+			id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			username VARCHAR(20),
+			password VARCHAR(20),
+			email VARCHAR(20));
+
+
+			CREATE TABLE requests(
+			id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			id_user int ,
+			ip_source VARCHAR(30),
+			user_agent VARCHAR(30),
+			date date,
+			site VARCHAR(30),
+			FOREIGN KEY(id_user) REFERENCES accounts(id));
+
+
+
+			CREATE USER 'user'@'%' IDENTIFIED BY 'user';
+			GRANT ALL PRIVILEGES ON app.* TO 'user'@'%';
+
+
+
+4) lancer le serveur flask:
+
+	-accéder à l'emplacement du projet:   ex: cd /home/user/Desktop/app
+
+	-déclarer le fichier application a flask   : export FLASK_APP=main.py
+
+	-démarrer le serveur flask : flask run   (vous aurez le lien avec lequel vous pouvez accéder  à l'application via un navigateur web)
+		
+		NB: c'est l'adresse de loopback qui est utilisée
+	si vous voulez accédé à l'application depuis votre machine hôte:
+
+		-métter la configuration réseau de la machine virtuelle en mode bridged
+		-remplacer "flask run"  par """flask run --host=0.0.0.0"""
+		-récupérer votre adresse IP par la commande  : ifconfig
+		-vous pouvez acééder à l'application depuis n'importe quelle autre machine dans le réseau en utilisant cette adresse IP
+
+
+		 
+
+
+
+
+
+
+
+
+
+   
