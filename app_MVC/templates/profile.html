@@ -1,0 +1,54 @@
+
+<link href="{{url_for('static', filename='profile.css') }}" rel="stylesheet">
+
+
+
+
+
+<div class="container">
+<div class="row gutters">
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+    <div class="card-body">
+        <div class="account-settings">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="{{url_for('static' , filename='avatar.jpeg')}}" alt="Account Admin">
+                </div>
+                <h5 class="user-name">{{username}}</h5>
+                <h6 class="user-email"> {{email}}</h6>
+
+            </div>
+            <table class="blueTable">
+<thead>
+<tr>
+<th>id user</th>
+<th>ip source</th>
+<th>user agent</th>
+<th>date</th>
+<th>site</th>
+</tr>
+</thead>
+
+<tbody>
+{% for item in requests %}
+<tr>
+<td>{{item['id_user']}}</td>
+<td>{{item['ip_source']}}</td>
+<td>{{item['user_agent']}}</td>
+<td>{{item['date']}}</td>
+<td>{{item['site']}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+            
+            
+            
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>

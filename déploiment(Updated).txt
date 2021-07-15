@@ -32,12 +32,12 @@ pour déployer cette application, suivez les étapes suivante:
 				sudo /usr/bin/python3 -m pip install --upgrade pip
 				sudo apt install mysql-server
 				sudo apt install -y default-libmysqlclient-dev
-				sudo pip install flask
-				sudo pip install flask_mysqldb
-				sudo pip install shodan
-				sudo pip install py_mysql
-				sudo pip install ipwhois
-				sudo pip install flask_bootstrap
+				pip install flask
+				pip install flask_mysqldb
+				pip install shodan
+				pip install py_mysql
+				pip install ipwhois
+				pip install flask_bootstrap
 
 3)Création de la base des données:
 	
@@ -46,30 +46,32 @@ pour déployer cette application, suivez les étapes suivante:
 	3.2)accéder à mysql via la commande:
 			 mysql
 	3.3)éxecuter les requêtes mysql suivantes:
-			CREATE DATABASE app;
-			use app
+
+
+CREATE DATABASE app;
+use app
 			
 
-			CREATE TABLE accounts(
-			id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-			username VARCHAR(20),
-			password VARCHAR(20),
-			email VARCHAR(20));
+CREATE TABLE accounts(
+id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(20),
+password VARCHAR(20),
+email VARCHAR(20));
 
 
-			CREATE TABLE requests(
-			id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-			id_user int ,
-			ip_source VARCHAR(30),
-			user_agent VARCHAR(30),
-			date date,
-			site VARCHAR(30),
-			FOREIGN KEY(id_user) REFERENCES accounts(id));
+CREATE TABLE requests(
+id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id_user int ,
+ip_source VARCHAR(30),
+user_agent VARCHAR(30),
+date VARCHAR(30),
+site VARCHAR(30),
+FOREIGN KEY(id_user) REFERENCES accounts(id));
 
 
 
-			CREATE USER 'user'@'%' IDENTIFIED BY 'user';
-			GRANT ALL PRIVILEGES ON app.* TO 'user'@'%';
+CREATE USER 'user'@'%' IDENTIFIED BY 'user';
+GRANT ALL PRIVILEGES ON app.* TO 'user'@'%';
 
 
 

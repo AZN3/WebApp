@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Colelecte d'information</title>
+      <meta name="viewport" content="width=device-width">
+      <!-- Bootstrap -->
+      <link href="{{url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+      <!-- styles -->
+      <link href="{{url_for('static', filename='styles.css') }}" rel="stylesheet">
+   </head>
+   <body>
+      <div class="header">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-5">
+               <!-- Logo -->
+               <div class="logo">
+                  <h1><a href="{{ url_for('home')}}">Collecte d'Information </a></h1>
+               </div>
+            </div>
+            <div class="col-md-5">
+               <div class="row">
+                  <div class="col-lg-12">
+                     <div class="input-group form">
+                        <form class="form"action="/search" method=post>
+                           <input class="form-control" type=text name=search value="{{ request.form.search}}" placeholder="Search IP ..."></br>
+                           <div class="input-group-btn"><input class="btn btn-primary" type=submit value="Search " >
+                        </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-2">
+                  <div class="navbar navbar-inverse" role="banner">
+                     <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                        <ul class="nav navbar-nav">
+                           <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+                              <ul class="dropdown-menu animated fadeInUp">
+                                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                                 <li><a href="{{ ('logout')}}">Logout</a></li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </nav>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+      <div class="row">
+      <div class="col-md-12">
+         <div class="content-box-header">
+            <div class="panel-title">Shodan Record {{data}}</div>
+            <div class="panel-options">
+            </div>
+         </div>
+         <div class="content-box-large box-with-header">
+            <div style="display: flex;
+               align-items: center;" class=row centreVerticalement>
+               <div  style="color: black;
+                  text-indent: 30px;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;" class=col-xs-6>
+                  <hr>
+                  {% for item in shodan_keys%}
+                  <p style="
+                     color: navy;
+                     text-indent: 30px;
+                     display: block;
+                     margin-top: 1em;
+                     margin-bottom: 1em;
+                     margin-left: 0;
+                     margin-right: 0;"> {{item[0]}} 
+                  </p>
+                  {% endfor %}
+                  <hr>
+               </div>
+               <div style="color: black;
+                  text-indent: 30px;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;" class=col-xs-6>
+                  <hr>
+                  {% for item in shodan_values%}
+                  <p style="
+                     color: navy;
+                     text-indent: 30px;
+                     display: block;
+                     margin-top: 1em;
+                     margin-bottom: 1em;
+                     margin-left: 0;
+                     margin-right: 0;"> {{item[0]}} 
+                  </p>
+                  {% endfor %}
+                  <hr>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="content-box-header">
+               <div class="panel-title">Vulnérabilités</div>
+               <div class="panel-options">
+               </div>
+            </div>
+            <div class="content-box-large box-with-header">
+               {% for item in vulns[0][0]%}
+               <p style="
+                  color: navy;
+                  text-indent: 30px;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;"> {{item}} 
+               </p>
+               {% endfor %}	
+               <br /><br />
+            </div>
+         </div>
+      </div>
+      <div class="row">
+      <div class="col-md-12">
+      <div class="content-box-header">
+         <div class="panel-title">DNS lookup</div>
+         <div class="panel-options">
+         </div>
+      </div>
+      <div class="content-box-large box-with-header">
+         <div class="col-md-10">
+            <div class="col-md-6">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="content-box-header">
+                        <div class="panel-title">Adresse IP (A record)</div>
+                        <div class="panel-options">
+                        </div>
+                     </div>
+                     <div class="content-box-large box-with-header">
+                        {% for item in A%}
+                        <p style="
+                           color: navy;
+                           text-indent: 30px;
+                           text-transform: uppercase;
+                           display: block;
+                           margin-top: 1em;
+                           margin-bottom: 1em;
+                           margin-left: 0;
+                           margin-right: 0;"> {{item}} 
+                        </p>
+                        {% endfor %}	
+                        <br /><br />
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="content-box-header">
+                           <div class="panel-title">Serveurs DNS (NS record)</div>
+                           <div class="panel-options">
+                           </div>
+                        </div>
+                        <div class="content-box-large box-with-header">
+                           {% for item in NS%}
+                           <p style="
+                              color: navy;
+                              text-indent: 30px;
+                              display: block;
+                              margin-top: 1em;
+                              margin-bottom: 1em;
+                              margin-left: 0;
+                              margin-right: 0;"> {{item}} 
+                           </p>
+                           {% endfor %}	
+                           <br /><br />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="content-box-header">
+                              <div class="panel-title">Subdomains</div>
+                              <div class="panel-options">
+                              </div>
+                           </div>
+                           <div class="content-box-large box-with-header">
+                              {% for item in subdomain%}
+                              <p style="
+                                 color: navy;
+                                 text-indent: 30px;
+                                 display: block;
+                                 margin-top: 1em;
+                                 margin-bottom: 1em;
+                                 margin-left: 0;
+                                 margin-right: 0;"> {{item}} 
+                              </p>
+                              {% endfor %}	
+                              <br /><br />
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="content-box-header">
+                              <div class="panel-title">Serveurs Mail (MX record)</div>
+                              <div class="panel-options">
+                              </div>
+                           </div>
+                           <div class="content-box-large box-with-header">
+                              <div class=container>
+                                 <div style="display: flex;
+                                    align-items: center;" class=row centreVerticalement>
+                                    <div  style="color: black;
+                                       text-indent: 30px;
+                                       display: block;
+                                       margin-top: 1em;
+                                       margin-bottom: 1em;
+                                       margin-left: 0;
+                                       margin-right: 0;" class=col-xs-6>
+                                       Server name 
+                                       <hr>
+                                       {% for item in MX%}
+                                       <p style="
+                                          color: navy;
+                                          text-indent: 30px;
+                                          display: block;
+                                          margin-top: 1em;
+                                          margin-bottom: 1em;
+                                          margin-left: 0;
+                                          margin-right: 0;"> {{item[1]}} 
+                                       </p>
+                                       {% endfor %}
+                                    </div>
+                                    <div style="color: black;
+                                       text-indent: 30px;
+                                       display: block;
+                                       margin-top: 1em;
+                                       margin-bottom: 1em;
+                                       margin-left: 0;
+                                       margin-right: 0;" class=col-xs-6>
+                                       Priority 
+                                       <hr>
+                                       {% for item in MX%}
+                                       <p style="
+                                          color: navy;
+                                          text-indent: 30px;
+                                          text-transform: uppercase;
+                                          display: block;
+                                          margin-top: 1em;
+                                          margin-bottom: 1em;
+                                          margin-left: 0;
+                                          margin-right: 0;"> {{item[0]}} 
+                                       </p>
+                                       {% endfor %} 
+                                    </div>
+                                 </div>
+                              </div>
+                              <br /><br />
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+      <div class="col-md-12">
+      <div class="content-box-header">
+         <div class="panel-title">RDAP lookup</div>
+         <div class="panel-options">
+         </div>
+      </div>
+      <div class="content-box-large box-with-header">
+      <div class="col-md-10">
+      <div class="col-md-6">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="content-box-header">
+               <div class="panel-title">Query</div>
+               <div class="panel-options">
+               </div>
+            </div>
+            <div class="content-box-large box-with-header">
+               <p style="
+                  color: navy;
+                  text-indent: 30px;
+                  text-transform: uppercase;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;"> {{query}} 
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+      <div class="row">
+      <div class="col-md-12">
+      <div class="content-box-header">
+         <div class="panel-title">AS Record</div>
+         <div class="panel-options">
+         </div>
+      </div>
+      <div class="content-box-large box-with-header">
+         <div style="display: flex;
+            align-items: center;" class=row centreVerticalement>
+            <div  style="color: black;
+               text-indent: 30px;
+               display: block;
+               margin-top: 1em;
+               margin-bottom: 1em;
+               margin-left: 0;
+               margin-right: 0;" class=col-xs-6>
+               .
+               <hr>
+               {% for item in asn%}
+               <p style="
+                  color: navy;
+                  text-indent: 30px;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;"> {{item}} 
+               </p>
+               {% endfor %}
+            </div>
+            <div style="color: black;
+               text-indent: 30px;
+               display: block;
+               margin-top: 1em;
+               margin-bottom: 1em;
+               margin-left: 0;
+               margin-right: 0;" class=col-xs-6>
+               .
+               <hr>
+               {% for item in asn_val%}
+               <p style="
+                  color: navy;
+                  text-indent: 30px;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;"> {{item}} 
+               </p>
+               {% endfor %} 
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="content-box-header">
+               <div class="panel-title">Entities</div>
+               <div class="panel-options">
+               </div>
+            </div>
+            <div class="content-box-large box-with-header">
+               {% for item in entities%}
+               <p style="
+                  color: navy;
+                  text-indent: 30px;
+                  text-transform: uppercase;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;"> {{item}} 
+               </p>
+               {% endfor %} 
+            </div>
+         </div>
+      </div>
+      <div class="row">
+      <div class="col-md-12">
+         <div class="content-box-header">
+            <div class="panel-title">Network</div>
+            <div class="panel-options">
+            </div>
+         </div>
+         <div class="content-box-large box-with-header">
+            <div class="content-box-large box-with-header">
+               <div style="display: flex;
+                  align-items: center;" class=row centreVerticalement>
+                  <div  style="color: black;
+                     text-indent: 30px;
+                     display: block;
+                     margin-top: 1em;
+                     margin-bottom: 1em;
+                     margin-left: 0;
+                     margin-right: 0;" class=col-xs-6>
+                     .
+                     <hr>
+                     {% for item in net%}
+                     <p style="
+                        color: navy;
+                        text-indent: 30px;
+                        display: block;
+                        margin-top: 1em;
+                        margin-bottom: 1em;
+                        margin-left: 0;
+                        margin-right: 0;"> {{item}} 
+                     </p>
+                     {% endfor %}
+                  </div>
+                  <div style="color: black;
+                     text-indent: 30px;
+                     display: block;
+                     margin-top: 1em;
+                     margin-bottom: 1em;
+                     margin-left: 0;
+                     margin-right: 0;" class=col-xs-6>
+                     .
+                     <hr>
+                     {% for item in net_val%}
+                     <p style="
+                        color: navy;
+                        text-indent: 30px;
+                        display: block;
+                        margin-top: 1em;
+                        margin-bottom: 1em;
+                        margin-left: 0;
+                        margin-right: 0;"> {{item}} 
+                     </p>
+                     {% endfor %} 
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="content-box-header">
+               <div class="panel-title">Contacts</div>
+               <div class="panel-options">
+               </div>
+            </div>
+            <div class="content-box-large box-with-header">
+               {% for item in contact %}
+               <p style="
+                  color: navy;
+                  text-indent: 30px;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;"> <span><u>address  </u> : </span> {{item['address'][0]['value'] }}</p>
+               <p style="
+                  color: navy;
+                  text-indent: 30px;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;"> <span><u>Phone  </u> : </span> {{item['phone'][0]['value'] }}</p>
+               <p style="
+                  color: navy;
+                  text-indent: 30px;
+                  display: block;
+                  margin-top: 1em;
+                  margin-bottom: 1em;
+                  margin-left: 0;
+                  margin-right: 0;"> <span><u>Email </u>  : </span> {{item['email'][0]['value'] }}</p>
+               <hr>
+               {% endfor %}	
+            </div>
+         </div>
+      </div>
+      <footer>
+         <div class="container">
+            <div class="copy text-center">
+               <a href='#'></a>
+            </div>
+         </div>
+      </footer>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://code.jquery.com/jquery.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="{{url_for('static', filename='bootstrap.min.js') }}"></script>
+ 
+
+     <script src="{{url_for('static', filename='custom.js') }}"></script>
+   </body>
+</html>
+
